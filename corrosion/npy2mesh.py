@@ -53,3 +53,18 @@ def plot_mesh(profile):
 
     # Show the plot to the screen
     plt.show()
+
+
+def npy2trimesh(f, x=[0, 19], y=[0, 19]):
+    """
+    Loads a npy file containing 2D height (corrosion) arrays, plus
+    associated x and y position limits. Creates and returns triangular 
+    mesh from data.
+    """
+    h = np.load(f)
+
+    x1 = np.linspace(x[0], x[1], h.shape[0])
+    y1 = np.linspace(y[0], y[1], h.shape[1])
+    X, Y = np.meshgrid(x1, y1)
+
+    return verts2trimesh(X, Y, h)
